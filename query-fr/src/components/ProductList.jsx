@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const retrieveProducts = async () => {
-	const response = await axios.get('http://localhost:3000/products');
+const retrieveProducts = async ({ queryKey }) => {
+	const response = await axios.get(`http://localhost:3000/${queryKey[0]}`);
 	return response.data;
 };
 
@@ -15,9 +15,6 @@ const ProductList = () => {
 		queryKey: ['products'],
 		queryFn: retrieveProducts,
 	});
-
-	console.log(products);
-	
 
 	if (isLoading) return <div>Loading...</div>;
 	if (error) return <div>Error: {error.message}</div>;
